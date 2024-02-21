@@ -1,15 +1,13 @@
-# MIRAD: A Method for Interpretable Ransomware Attack Detection
+# embedding-sum
 
 In this repository we open-source a method for training interpretable models,
-originally developed for ransomware attack detection.
+originally developed for ransomware attack detection (see [Sagenso/MIRAD](https://github.com/Sagenso/MIRAD))
 
 Key features:
 - model and prediction interpretability
 - concise implementation based on `numpy` and `pytorch`
 - efficiency: training can be executed on a CPU, evaluation is fast
 - extensibility: model structure allows easy enforcement of task-specific requirements by additional regularization
-
-We also include everything necessary to reproduce the experiments we conducted to publish our results.
 
 ## How it works
 
@@ -31,17 +29,6 @@ In other words, we train an [additive model](https://en.wikipedia.org/wiki/Addit
 The model can be interpreted by plotting the step functions.
 Usage example can be found in the [tutorial notebook](notebooks/tutorial.ipynb).
 
-## Experiments
-
-The [data](data) directory contains data sets related to ransomware detection.
-Each row corresponds to a moment in time during one of many simulated user sessions with ransomware attacks.
-The target variable indicates whether the attack was already ongoing at that moment.
-Each feature is based on a number of system events of a specific kind in a preceding fixed-length time window.
-Helpers for loading this data are provided in [lib/data.py](lib/data.py).
-
-Experiments that compare MIRAD to popular interpretable models are conducted in the
-[experiments notebook](notebooks/experiments.ipynb).
-
 ## Running the notebooks
 
 First, clone the repository.
@@ -54,6 +41,6 @@ jupyter notebook
 
 or build and run a docker image
 ```shell
- docker build -t mirad .
- docker run --rm -it -p 8888:8888 mirad
+ docker build -t embedding-sum .
+ docker run --rm -it -p 8888:8888 embedding-sum
 ```
