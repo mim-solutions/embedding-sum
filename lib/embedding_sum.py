@@ -219,6 +219,12 @@ class EmbeddingSumModule(nn.Module):
             if is_categorical
         ]).pow(2).mean()
 
+    def abs_area_per_feature(self):
+        return torch.concat([
+            ((w @ emb.weight.abs()).sum() / w.sum()).view(1)
+            for w, emb in zip(self.values_weights, self.embeddings)
+        ])
+
 
 @dataclasses.dataclass(frozen=True)
 class CategoricalFeatureInfo:
@@ -375,6 +381,12 @@ class EmbeddingSumClassifier:
             )
             .set_index('epoch')
             .plot()
+        )
+
+    def feature_importance(self) -> pd.Series:
+        return pd.Series(
+            self.module_.abs_area_per_feature().detach().numpy(),
+            index=self.features_info_.feature_names,
         )
 
     def visualize(self, subset: list[str] = None):
